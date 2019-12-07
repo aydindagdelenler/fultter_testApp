@@ -1,10 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MyHomePage extends State<StatefulWidget> {
-  int sayac = 0;
-  var timeout = Duration(seconds: 3);
+  List<int> numList = List.generate(
+    20,
+    (index) => index,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -13,172 +14,35 @@ class MyHomePage extends State<StatefulWidget> {
       appBar: AppBar(
         title: Text("Fullter Dersleri 3"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          setState(() {
-            sayac++;
-          });
-          debugPrint("button pressed");
-        },
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "Image ve Button Türleri",
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+      body: ListView.builder(
+        itemCount: numList.length,
+        itemBuilder: (context, index) => Card(
+          child: ListTile(
+            leading: CircleAvatar(
+              child: Icon(Icons.account_box),
             ),
+            title: Text("Index : $index"),
+            subtitle: Text("ListTile Subtitle"),
+            trailing: Icon(Icons.access_alarm),
+            onTap: () {
+              debugPrint("$index pressed!");
+              Fluttertoast.showToast(
+                  msg: "$index pressed!",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.orange,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                color: Colors.pink.shade100,
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_alarm,
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    Text("Aydın")
-                  ],
-                ),
-                width: 70,
-                height: 70,
-              ),
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Container(
-                color: Colors.orange,
-                child: Text(
-                  "Sayaç : $sayac - timer: $timeout",
-                  style: TextStyle(fontSize: 28),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    child: RaisedButton(
-                        color: Colors.green,
-                        child: Icon(Icons.add),
-                        onPressed: () {
-                          setState(() {
-                            sayac++;
-                          });
-                          debugPrint("Sayaç 1 arttı");
-                        }),
-                    margin: EdgeInsets.all(5),
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      child: Icon(Icons.remove),
-                      onPressed: () {
-                        setState(() {
-                          sayac--;
-                        });
-                        debugPrint("Sayaç 1 azaldı");
-                      },
-                    ),
-                    margin: EdgeInsets.all(5),
-                  ),
-                ],
-              )
-            ],
-          )
-        ],
+          margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
+          color: index % 2 == 0 ? Colors.blue.shade200 : Colors.blue.shade100,
+          elevation: 10,
+          borderOnForeground: true,
+          semanticContainer: true,
+          clipBehavior: Clip.antiAlias,
+        ),
       ),
     );
   }
